@@ -1,6 +1,6 @@
 .textbox {
   width: 60%;
-  margin: 0 auto;
+  margin: 2em auto;
 }
 
 .entity {
@@ -11,7 +11,9 @@
 }
 
 .entity::after {
-  content: "";
+  content: "Delete";
+  text-align: center;
+  font-size: 0.8em;
   display: none;
   position: absolute;
   top: 0;
@@ -19,13 +21,14 @@
   width: 100%;
   height: 100%;
   color: white;
-  background-color: rgba(0, 0, 0, 0.748);
+  border-radius: 0.1em;
+  background-color: rgba(0, 0, 0, 0.556);
   /* background: url("path/to/delete-icon.svg"); */
 }
 
-.entity:hover::after {
+/* .entity:hover::after {
   display: block;
-}
+} */
 
 .name {
   background-color: rgba(243, 60, 60, 0.568);

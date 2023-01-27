@@ -22,14 +22,12 @@ const TextBox = () => {
 
         if (selection.anchorOffset === selection.extentOffset) return
 
-        console.log(selection)
-        createEntity(selection, activeTag)
-        console.log(selection)
+        console.log("Text Length,", text.length)
+        const indices = createEntity(selection, activeTag, e.target)
+        console.log("Slice:", text.slice(indices[0], indices[1]))
 
         const selectedText = selection.anchorOffset < selection.extentOffset ? text.slice(selection.anchorOffset, selection.extentOffset) : text.slice(selection.extentOffset, selection.anchorOffset)
         const cleanText = selectedText.replace(/(\r\n|\n|\r)/gm, "").replace(/ +(?= )/g, '');;
-
-        console.log(cleanText)
 
         // console.log(text.slice(0, selection.anchorOffset))
         // console.log(text.slice(selection.anchorOffset, selection.extentOffset))
