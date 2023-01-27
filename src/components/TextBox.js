@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import createEntity from '../utils/createEntity'
 
 const TextBox = () => {
+    const [activeTag, setActiveTag] = useState("name")
     const [entities, setEntities] = useState([])
     const [text, setText] = useState(`PIZZA FRITTA 😍😍
     .
@@ -22,7 +23,7 @@ const TextBox = () => {
         if (selection.anchorOffset === selection.extentOffset) return
 
         console.log(selection)
-        createEntity(selection)
+        createEntity(selection, activeTag)
         console.log(selection)
 
         const selectedText = selection.anchorOffset < selection.extentOffset ? text.slice(selection.anchorOffset, selection.extentOffset) : text.slice(selection.extentOffset, selection.anchorOffset)
