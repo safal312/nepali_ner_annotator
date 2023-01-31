@@ -21,14 +21,24 @@ const createEntity = (selection, activeTag, target) => {
     console.log(selection)
     console.log(target)
 
+    const position = [0, 0]
+
     for (let i = 0; i < selection.anchorNode.childNodes.length; i++) {
         const node = selection.anchorNode.childNodes[i]
-        if (node.id && node.id === identifier) break
+        const node_length = node.nodeName === "#text" ? node.length : node.textContent.length
 
-        characters += node.nodeName === "#text" ? node.length : node.textContent.length
+        if (node.id && node.id === identifier) {
+            position[0] = characters
+            position[1] = characters + node_length
+            break
+        }
+
+        characters += node_length
     }
 
-    return [characters, characters + selection.toString().length]
+    console.log(position)
+
+    return position
 }
 
 export default createEntity

@@ -22,7 +22,6 @@ const TextBox = () => {
 
         if (selection.anchorOffset === selection.extentOffset) return
 
-        console.log("Text Length,", text.length)
         const indices = createEntity(selection, activeTag, e.target)
         console.log("Slice:", text.slice(indices[0], indices[1]))
 
