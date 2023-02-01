@@ -9,6 +9,7 @@ const createEntity = (selection, activeTag, target) => {
 
     const identifier = uuidv4()
     span.id = identifier
+    // span.style.backgroundColor = `hsl(${hue}, ${sat}, ${light})`
 
     try {
         range.surroundContents(span)
@@ -38,7 +39,10 @@ const createEntity = (selection, activeTag, target) => {
 
     console.log(position)
 
-    return position
+    return {
+        id: identifier,
+        position
+    }
 }
 
 export default createEntity

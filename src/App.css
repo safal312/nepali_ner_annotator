@@ -33,3 +33,7 @@
 .name {
   background-color: rgba(243, 60, 60, 0.568);
 }
+
+#tagInput .ant-input-search-button {
+  background-color: rgb(98, 72, 248);
+}

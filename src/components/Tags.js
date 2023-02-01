@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Radio, Input, Button } from 'antd'
+import { v4 as uuidv4 } from 'uuid';
 
 const { Search } = Input
 
@@ -11,26 +12,47 @@ const Tags = () => {
         if (value === "" || value === null || value === undefined) return
         if (tags.includes(value)) return
 
-        setTags([...tags, value])
-        console.log([...tags, value])
+        const hue = parseInt(Math.random() * 360)
+        const sat = parseInt(Math.random() * 45) + 50
+        const light = 60
+
+        const id = uuidv4()
+
+        const tag = {id, value, color: [hue, sat, light]}
+        console.log(tags)
+        setTags([...tags, tag])
+        if (tags.length === 0) {
+            setTagValue(tag)
+        }
     }
 
     const onTagChange = (e) => {
         if (e.target.value === "" || e.target.value === null) return
-        setTagValue(e.target.value)
+        tags.forEach(tag => {
+            if (tag.value === e.target.value) {
+                setTagValue(tag)
+            } 
+        })
     }
 
     const handleTagDelete = (e) => {
-        const filteredTags = tags.filter(tag => tag !== tagValue)
-        console.log(tags.at(-2))
-        if (tags.length >= 1) setTagValue(tags[-2])
+        let index;
+        const filteredTags = tags.filter((tag, i) => {
+            const bool = tag.value !== tagValue.value
+            if (!bool) index = i
+            return bool
+        })
+
+        if (tags.length >= 1) {
+            setTagValue(tags.at(index-1))
+        }
         setTags(filteredTags)
     }
 
   return (
-    <div className='textbox'>
+    <div id="tagInput" className='textbox'>
         <Search
-            style={{ color: 'red', display: 'block', minWidth: '10em', width: "60%", marginBottom: "1em" }}
+            style={{ display: 'block', minWidth: '10em', width: "30%", marginBottom: "1em" }}
             placeholder="Enter Tag Name"
             allowClear
             enterButton="Add"
@@ -38,16 +60,17 @@ const Tags = () => {
             onSearch={onInputChange}
         />
         {tags.length > 0 && <div className='flex justify-between'>
-            <div>Selected Tag: {tagValue}</div>
+            <div>Selected Tag: <span style={{color: `hsl(${tagValue.color[0]}, ${tagValue.color[1]}%, ${tagValue.color[2]}%)`}} >{tagValue.value}</span></div>
             <div>
                 <Button onClick={handleTagDelete} type="primary" danger>
                     Delete
                 </Button>
             </div>
         </div>}
-        <Radio.Group defaultValue="Name" buttonStyle="solid" className='textbox' onChange={onTagChange} value={tagValue}>
+
+        <Radio.Group buttonStyle="solid" className='textbox' onChange={onTagChange} value={tagValue.value}>
             {tags.map(tag => {
-                return <Radio.Button key={tag} value={tag}>{tag}</Radio.Button>
+                return <Radio.Button key={tag.value} value={tag.value}>{tag.value}</Radio.Button>
             })}
         </Radio.Group>
         
