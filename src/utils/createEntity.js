@@ -5,22 +5,15 @@ const createEntity = (selection, activeTag, target) => {
     const range = selection.getRangeAt(0)
 
     const span = document.createElement("span")
-    span.classList.add("entity", activeTag)
+    span.classList.add("entity", activeTag.value)
 
     const identifier = uuidv4()
     span.id = identifier
-    // span.style.backgroundColor = `hsl(${hue}, ${sat}, ${light})`
 
-    try {
-        range.surroundContents(span)
-    } catch (e) {
-        // show an error popup
-        console.log("The selected text is already tagged")
-    }
+    const tagColor = activeTag.color
+    span.style.backgroundColor = `hsla(${tagColor[0]}, ${tagColor[1]}%, ${tagColor[2]}%,0.7)`
 
     let characters = 0
-    console.log(selection)
-    console.log(target)
 
     const position = [0, 0]
 
@@ -37,7 +30,12 @@ const createEntity = (selection, activeTag, target) => {
         characters += node_length
     }
 
-    console.log(position)
+    try {
+        if (selection.toString() !== target.textContent) range.surroundContents(span)
+    } catch (e) {
+        // show an error popup
+        console.log("The selected text is already tagged")
+    }
 
     return {
         id: identifier,

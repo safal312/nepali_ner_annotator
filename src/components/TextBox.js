@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
+import { NERContext } from '../context/NERContext'
 import createEntity from '../utils/createEntity'
 
 const TextBox = () => {
-    const [activeTag, setActiveTag] = useState("name")
+    const { tags : allTags, activeTag, handleTag, setActiveTag } = useContext(NERContext)
+
+    // const [activeTag, setActiveTag] = useState("name")
     const [entities, setEntities] = useState([])
     const [text, setText] = useState(`PIZZA FRITTA 😍😍
     .
@@ -18,12 +21,12 @@ const TextBox = () => {
     const selectWord = (e) => {
         const selection = window.getSelection()
 
-        if (selection.toString() == "") return
+        if (selection.toString() === "") return
 
         if (selection.anchorOffset === selection.extentOffset) return
 
-        const indices = createEntity(selection, activeTag, e.target)
-        console.log("Slice:", text.slice(indices[0], indices[1]))
+        const entity = createEntity(selection, activeTag, e.target)
+        // console.log("Slice:", text.slice(entity.position[0], entity.position[1]))
 
         const selectedText = selection.anchorOffset < selection.extentOffset ? text.slice(selection.anchorOffset, selection.extentOffset) : text.slice(selection.extentOffset, selection.anchorOffset)
         const cleanText = selectedText.replace(/(\r\n|\n|\r)/gm, "").replace(/ +(?= )/g, '');;

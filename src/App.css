@@ -4,10 +4,12 @@
 }
 
 .entity {
-  cursor: pointer;
+  /* cursor: pointer; */
   padding: 0.1em 0.2em;
   border-radius: 0.1em;
   position: relative;
+  border-width: 0.05em;
+  border-color: rgba(0, 0, 0, 0.126);
 }
 
 .entity::after {
