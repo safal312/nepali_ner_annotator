@@ -11,6 +11,7 @@ const Tags = () => {
 
     const onInputChange = (value) => {
         if (value === "" || value === null || value === undefined) return
+
         if (allTags.find(tag => tag.value === value)) return
 
         const hue = parseInt(Math.random() * 360)
@@ -73,7 +74,7 @@ const Tags = () => {
 
         <Radio.Group buttonStyle="solid" className='textbox' onChange={onTagChange} value={activeTag.value}>
             {allTags.map(tag => {
-                return <Radio.Button key={tag.value} value={tag.value}>{tag.value}</Radio.Button>
+                return <Radio.Button key={tag.id} value={tag.value}>{tag.value}</Radio.Button>
             })}
         </Radio.Group>
     </div>

@@ -17,7 +17,7 @@ const TextBox = () => {
     💰Rs. 390/-
     ®️Rating: 8.5/10
     #mrfoodienepal #stayhungry #lifeisbeautiful #damidamidami 👌`)
-
+    // const cleanText = text.replace(/(\r\n|\n|\r)/gm, "").replace(/ +(?= )/g, '');;
     const selectWord = (e) => {
         const selection = window.getSelection()
 
@@ -25,11 +25,17 @@ const TextBox = () => {
 
         if (selection.anchorOffset === selection.extentOffset) return
 
+        if (allTags.length === 0) {
+            console.log("Create Tags First")
+            return
+            // send an error
+        }
+
         const entity = createEntity(selection, activeTag, e.target)
+        // console.log(entity)
         // console.log("Slice:", text.slice(entity.position[0], entity.position[1]))
 
         const selectedText = selection.anchorOffset < selection.extentOffset ? text.slice(selection.anchorOffset, selection.extentOffset) : text.slice(selection.extentOffset, selection.anchorOffset)
-        const cleanText = selectedText.replace(/(\r\n|\n|\r)/gm, "").replace(/ +(?= )/g, '');;
 
         // console.log(text.slice(0, selection.anchorOffset))
         // console.log(text.slice(selection.anchorOffset, selection.extentOffset))
