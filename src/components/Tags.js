@@ -67,7 +67,7 @@ const Tags = () => {
             <div>Selected Tag: <span style={{color: `hsl(${activeTag.color[0]}, ${activeTag.color[1]}%, ${activeTag.color[2]}%)`}} >{activeTag.value}</span></div>
             <div>
                 <Button onClick={handleTagDelete} type="primary" danger>
-                    Delete
+                    Delete Tag
                 </Button>
             </div>
         </div>}
